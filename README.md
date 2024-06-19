@@ -14,4 +14,4 @@ Para rodar este projeto localmente, siga os passos abaixo:
 1. Clone este repositório:
 
    ```bash
-   git clone https://github.com/seu-usuario/CPXBar.git
+   git clone https://github.com/ALL4ALL23/CPXBar.git
