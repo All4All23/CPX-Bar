@@ -1,0 +1,63 @@
+// screens/MenuScreen.js
+import React, { useState, useEffect } from 'react'; import { View, Text, Button, FlatList, StyleSheet } from 'react-native'; import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+
+export default function MenuScreen() {
+  const [menu, setMenu] = useState([]);
+  const [mesaId, setMesaId] = useState('');
+
+  useEffect(() => {
+    const fetchMenu = async () => {
+      const response = await axios.get('https://seuservidor.com/api/menu');
+      setMenu(response.data);
+    };
+
+    const getMesaId = async () => {
+      const id = await AsyncStorage.getItem('mesaId');
+      setMesaId(id);
+    };
+
+    fetchMenu();
+    getMesaId();
+  }, []);
+
+  const handleOrder = async (item) => {
+    await axios.post('https://seuservidor.com/api/order', {
+      mesaId,
+      item,
+    });
+    alert('Pedido enviado!');
+  };
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>Mesa: {mesaId}</Text>
+      <FlatList
+        data={menu}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.menuItem}>
+            <Text style={styles.text}>{item.name} - ${item.price}</Text>
+            <Button color="#ff0000" title="Pedir" onPress={() => handleOrder(item)} />
+          </View>
+        )}
+      />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#000',
+  },
+  text: {
+    color: '#ff0000',
+    fontSize: 18,
+  },
+  menuItem: {
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ff0000',
+  },
+});
