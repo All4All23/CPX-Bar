@@ -4,7 +4,7 @@ Este é o aplicativo móvel CPX Bar, desenvolvido em React Native.
 
 ## Funcionalidades
 
-- Escaneamento de QR Code para selecionar a mesa.
+- Escaneamento de QR Code para Poder pagar o seu consumo.
 - Visualização do menu e realização de pedidos.
 
 ## Instalação
