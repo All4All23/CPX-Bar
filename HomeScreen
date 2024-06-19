@@ -1,0 +1,39 @@
+// screens/HomeScreen.js
+import React from 'react';
+import { View, Text, Button, StyleSheet, Image } from 'react-native'; import AsyncStorage from '@react-native-async-storage/async-storage';
+
+export default function HomeScreen({ navigation }) {
+  const handleScanQRCode = () => {
+    // Simulação de escaneamento de QR code
+    const mesaId = 'mesa_1'; // ID da mesa escaneada
+    AsyncStorage.setItem('mesaId', mesaId);
+    navigation.navigate('Menu');
+  };
+
+  return (
+    <View style={styles.container}>
+      <Image source={require('../assets/logo.png')} style={styles.logo} />
+      <Text style={styles.text}>Escaneie o QR Code da Mesa</Text>
+      <Button color="#ff0000" title="Escanear QR Code" onPress={handleScanQRCode} />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#000',
+  },
+  text: {
+    color: '#ff0000',
+    marginBottom: 20,
+    fontSize: 18,
+  },
+  logo: {
+    width: 150,
+    height: 150,
+    marginBottom: 20,
+  },
+});
